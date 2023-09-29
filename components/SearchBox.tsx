@@ -30,7 +30,7 @@ const SearchBox = () => {
 
     return (
         <div dir="rtl" className="inline-flex items-center relative w-full max-w-xl">
-            <input className="input w-full" placeholder="جستجو کنید..." onChange={e => handleInputChange(e.currentTarget)} />
+            <input className="input w-full input-bordered" placeholder="جستجو کنید..." onChange={e => handleInputChange(e.currentTarget)} />
             <SearchIcon
                 className={`absolute left-3 opacity-70 ${isTyping ? 'animate-spin' : ''
                     }`}

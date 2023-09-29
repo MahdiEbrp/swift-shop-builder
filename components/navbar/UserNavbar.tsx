@@ -84,7 +84,7 @@ const UserDropdownMenu = () => {
 
 const UserNavbar = () => {
     return (
-        <div className="sticky navbar bg-base-100 p-2">
+        <div className="sticky z-50 navbar bg-base-100 p-2">
             <div className="justify-start hidden md:flex">
                 <ShoppingBagIcon />
                 <ul className="dropdown menu menu-horizontal px-1">

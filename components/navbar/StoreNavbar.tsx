@@ -2,50 +2,69 @@ import { GiClothes, GiHamburgerMenu } from 'react-icons/gi';
 import { GrLocation } from 'react-icons/gr';
 import { DropdownItem } from './UserNavbar';
 import { FaTshirt } from 'react-icons/fa';
-import { HTMLAttributes, ReactNode } from 'react';
+import React,{ HTMLAttributes, ReactNode, useState } from 'react';
 import { IconType } from 'react-icons';
+import Modal from '../Modal';
+import CitySelection from '../modal-templates/CitySelection';
+import { persianLanguage } from '@/data/persian';
 
 const MAX_ICON_SIZE = 24;
 type HoverButtonProps = {
     icon: IconType;
     label: string;
     children?: ReactNode;
-} & HTMLAttributes<HTMLDivElement>;
+} & HTMLAttributes<HTMLButtonElement>;
 export const HoverButton = ({ icon, label, children, ...rest }: HoverButtonProps) => {
     const Icon = icon;
     return (
-        <div dir='rtl' className="dropdown dropdown-hover">
-            <div {...rest} dir='rtl' className='btn btn-ghost btn-sm inline-flex items-center gap-1'>
+        <div dir='rtl' className='dropdown dropdown-hover' tabIndex={0}>
+            <button {...rest} dir='rtl' className='btn btn-ghost btn-sm inline-flex items-center gap-1'>
                 <Icon size={MAX_ICON_SIZE} />
                 <span>{label}</span>
-            </div>
+            </button>
             {children}
         </div>
     );
 };
+type DropdownMenuProps = {
+    children?: React.ReactNode;
+    className?: string;
+} & HTMLAttributes<HTMLUListElement>;
 
+const DropdownMenu: React.FC<DropdownMenuProps> = ({ children, className, ...rest }) => {
 
-const StoreNavbar = () => {
+    const combinedClassName = `dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52 ${className || ''}`;
 
     return (
-        <nav className="navbar hidden md:flex bg-base-100 min-h-[1rem] p-[2px]">
-            <div className="justify-start">
-                <HoverButton icon={GrLocation} label='ارسال به شیراز,شیراز' />
+        <ul {...rest} tabIndex={0} className={combinedClassName}>
+            {children}
+        </ul>
+    );
+};
+const StoreNavbar = () => {
+    const [isModalOpen, setModalOpen] = useState(false);
+    return (
+        <nav className='navbar hidden md:flex bg-base-100 min-h-[1rem] p-[2px]'>
+            <div className='justify-start'>
+                <HoverButton icon={GrLocation} label={persianLanguage.pleaseSelectYourCity} onClick={() => setModalOpen(true)} />
+                <Modal isOpen={isModalOpen} handleClose={() => setModalOpen(false)}>
+                    <CitySelection />
+                </Modal>
             </div>
-            <div className="flex-1 flex-col items-center">
+            <div className='flex-1 flex-col items-center'>
             </div>
-            <div className="justify-end p-1">
-                <HoverButton icon={GiHamburgerMenu} label='دسته‌بندی کالاها' tabIndex={0}>
-                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                        <DropdownItem icon={FaTshirt} label='تیشرت' />
-                        <DropdownItem icon={GiClothes} label='لباس مجلسی' />
-                    </ul>
+            <div className='justify-end p-1'>
+                <HoverButton icon={GiHamburgerMenu} label={persianLanguage.commodityCategory}>
+                    <DropdownMenu>
+                        <DropdownItem icon={FaTshirt} label={persianLanguage.tShirt} />
+                        <DropdownItem icon={GiClothes} label={persianLanguage.formalClothes} />
+                    </DropdownMenu>
                 </HoverButton>
 
             </div>
 
 
-        </nav>
+        </nav >
     );
 };
 

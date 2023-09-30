@@ -1,7 +1,7 @@
-"use client";
+'use client';
 import React from 'react';
-import UserNavbar from './navbar/UserNavbar';
-import StoreNavbar from './navbar/StoreNavbar';
+import UserNavbar from './UserNavbar';
+import StoreNavbar from './StoreNavbar';
 
 const Navbar = () => {
     return (

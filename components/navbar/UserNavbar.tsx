@@ -1,20 +1,21 @@
-"use client";
-import React, { useEffect } from 'react';
-import { IconType } from 'react-icons';
+'use client';
+import React, { HTMLAttributes, useEffect } from 'react';
+import SearchBox from '../SearchBox';
 import { BiShoppingBag, BiUser, BiLogOutCircle } from 'react-icons/bi';
-import { MdEmojiNature, MdSettings } from 'react-icons/md';
 import { BsBagHeartFill } from 'react-icons/bs';
 import { FaComments } from 'react-icons/fa';
-import SearchBox from '../SearchBox';
+import { IconType } from 'react-icons';
+import { MdEmojiNature, MdSettings } from 'react-icons/md';
+import { persianLanguage } from '@/data/persian';
 
 const MAX_ICON_SIZE = 24;
 const USER_DROPDOWN_ID = 'userDropdown';
 
 const ShoppingBagIcon = () => {
     return (
-        <button className="btn btn-ghost btn-circle">
-            <div className="indicator">
-                <span className="indicator-item indicator-bottom badge badge-accent badge-sm">+۹۹</span>
+        <button className='btn btn-ghost btn-circle'>
+            <div className='indicator'>
+                <span className='indicator-item indicator-bottom badge badge-accent badge-sm'>+۹۹</span>
                 <BiShoppingBag size={MAX_ICON_SIZE + 5} />
             </div>
         </button>
@@ -22,16 +23,22 @@ const ShoppingBagIcon = () => {
 };
 
 type DropdownItemProps = {
-    icon: IconType;
+    icon?: IconType;
     label: string;
-};
+    onClick?: () => void;
+} & HTMLAttributes<HTMLLIElement>;
 
-export const DropdownItem: React.FC<DropdownItemProps> = ({ icon, label }) => {
+export const DropdownItem: React.FC<DropdownItemProps> = ({ icon, label, onClick, ...rest }) => {
     const IconComponent = icon;
+
+    const handleClick = () => {
+        onClick?.();
+    };
+
     return (
-        <li dir='rtl'>
-            <a className=''>
-                <IconComponent size={MAX_ICON_SIZE} />
+        <li dir='rtl' {...rest}>
+            <a onClick={handleClick}>
+                {IconComponent && <IconComponent size={MAX_ICON_SIZE} />}
                 <span>{label}</span>
             </a>
         </li>
@@ -61,21 +68,21 @@ const UserDropdownMenu = () => {
     return (
         <li tabIndex={0} className='mr-2' onClick={handleDropdownClick}>
             <details id={USER_DROPDOWN_ID}>
-                <summary className="btn btn-ghost btn-circle overflow-hidden rounded-full">
+                <summary className='btn btn-ghost btn-circle overflow-hidden rounded-full'>
                     <BiUser size={MAX_ICON_SIZE} />
                 </summary>
-                <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <div className="flex flex-center flex-col items-center gap-2 justify-center avatar placeholder mb-2">
-                        <div className="bg-neutral-focus text-neutral-content rounded-full w-24">
-                            <span className="text-3xl">م</span>
+                <ul tabIndex={0} className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'>
+                    <div className='flex flex-center flex-col items-center gap-2 justify-center avatar placeholder mb-2'>
+                        <div className='bg-neutral-focus text-neutral-content rounded-full w-24'>
+                            <span className='text-3xl'>م</span>
                         </div>
-                        <span>کاربر میهمان</span>
+                        <span>{persianLanguage.guestUser}</span>
                     </div>
-                    <DropdownItem icon={MdEmojiNature} label='سفارش‌ها' />
-                    <DropdownItem icon={BsBagHeartFill} label='علاقه‌مندی‌ها' />
-                    <DropdownItem icon={FaComments} label='دیدگاه‌ها' />
-                    <DropdownItem icon={MdSettings} label='تنظیمات' />
-                    <DropdownItem icon={BiLogOutCircle} label='خروج از حساب کاربری' />
+                    <DropdownItem icon={MdEmojiNature} label={persianLanguage.orders} />
+                    <DropdownItem icon={BsBagHeartFill} label={persianLanguage.favorites} />
+                    <DropdownItem icon={FaComments} label={persianLanguage.comments} />
+                    <DropdownItem icon={MdSettings} label={persianLanguage.settings} />
+                    <DropdownItem icon={BiLogOutCircle} label={persianLanguage.logout} />
                 </ul>
             </details>
         </li>
@@ -84,18 +91,18 @@ const UserDropdownMenu = () => {
 
 const UserNavbar = () => {
     return (
-        <div className="sticky z-50 navbar bg-base-100 p-2">
-            <div className="justify-start hidden md:flex">
+        <div className='sticky z-50 navbar bg-base-100 p-2'>
+            <div className='justify-start hidden md:flex'>
                 <ShoppingBagIcon />
-                <ul className="dropdown menu menu-horizontal px-1">
+                <ul className='dropdown menu menu-horizontal px-1'>
                     <UserDropdownMenu />
                 </ul>
             </div>
-            <div className="flex-1 flex-col items-center">
+            <div className='flex-1 flex-col items-center'>
                 <SearchBox />
             </div>
-            <div className="justify-end p-2">
-                <span className='normal-case hidden md:flex text-lg font-bold'>فروشگاه لباس دنیا</span>
+            <div className='justify-end p-2'>
+                <span className='normal-case hidden md:flex text-lg font-bold'>{persianLanguage.storeName}</span>
             </div>
         </div>
     );

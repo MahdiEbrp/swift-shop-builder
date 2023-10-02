@@ -54,7 +54,7 @@ const StoreNavbar = () => {
             <div className='justify-start'>
                 <HoverButton icon={GrLocation} label={selectedCity} onClick={() => setModalOpen(true)} />
             </div>
-            <CitySelectionModal isOpen={isModalOpen} handleClose={() => setModalOpen(false)} onItemSelect={handleCityChange} />
+            <CitySelectionModal isOpen={isModalOpen} handleClose={() => setModalOpen(false)} onAddressChange={handleCityChange} />
             <div className='flex-1 flex-col items-center'>
             </div>
             <div className='justify-end p-1'>

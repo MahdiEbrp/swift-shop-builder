@@ -4,13 +4,13 @@ import { persianLanguage, provinces } from '@/data/persian';
 import Modal, { ModalProps } from '../Modal';
 
 type CitySelectionModalProps = {
-    onItemSelect?: (item: AccordionItemType, itemPath: string) => void;
+    onAddressChange?: (city: AccordionItemType, province: string) => void;
 } & ModalProps;
 
-const CitySelectionModal: React.FC<CitySelectionModalProps> = ({ isOpen, handleClose, onItemSelect }) => {
+const CitySelectionModal: React.FC<CitySelectionModalProps> = ({ isOpen, handleClose, onAddressChange }) => {
 
-    const handleItemSelect = (item: AccordionItemType, itemPath: string) => {
-        onItemSelect?.(item, itemPath);
+    const handleItemSelect = (city: AccordionItemType, province: string) => {
+        onAddressChange?.(city, province);
         handleClose();
     };
 

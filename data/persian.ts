@@ -14,6 +14,7 @@ export const persianLanguage = {
     comments: 'دیدگاه‌ها',
     settings: 'تنظیمات',
     logout: 'خروج از حساب کاربری',
+    back:'بازگشت',
 };
 export const provinces = [
     'آذربایجان شرقی',

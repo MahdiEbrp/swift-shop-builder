@@ -8,3 +8,28 @@ html,body,main {
   padding: 0px !important;
   overflow-x: hidden;
 }
+
+.slideInRight {
+  animation: slideInRight 0.5s;
+  animation-play-state: running;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slideInRight.done {
+  animation-play-state: paused;
+  transform: translateX(0);
+}
+
+
+
+
+
+

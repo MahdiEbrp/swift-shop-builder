@@ -1,5 +1,5 @@
 import { persianLanguage } from '@/data/persian';
-import React, { useEffect } from 'react';
+import React, { KeyboardEvent, MouseEvent } from 'react';
 
 type ModalProps = {
     isOpen: boolean;
@@ -8,39 +8,33 @@ type ModalProps = {
 };
 
 const Modal: React.FC<ModalProps> = ({ isOpen, handleClose, children }) => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
             handleClose();
         }
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-        const modal = document.querySelector('.modal-box');
-        if (modal && !modal.contains(event.target as Node)) {
+    const handleClickOutside = (e: MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        const targetElement = e.target as HTMLElement;
+        const modalElement = document.querySelector('.modal-box');
+
+        if (modalElement && !modalElement.contains(targetElement)) {
             handleClose();
         }
     };
-
-    useEffect(() => {
-        if (isOpen) {
-            document.addEventListener('keydown', handleKeyDown);
-            document.addEventListener('click', handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-            document.removeEventListener('click', handleClickOutside);
-        };
-    }, [isOpen]);
 
     return (
-        <div dir='rtl' className={`modal ${isOpen ? 'modal-open' : ''}`}>
-            <div className='modal-box'>
-                {children}
-                <div className='modal-action'>
-                    <label htmlFor='main_modal' className='btn' onClick={handleClose}>
-                        {persianLanguage.close}
-                    </label>
+        <div onClick={handleClickOutside} onKeyDown={handleKeyDown}>
+            <div dir='rtl' className={`modal ${isOpen ? 'modal-open' : ''}`}>
+                <div className='modal-box'>
+                    {children}
+                    <div className='modal-action'>
+                        <label htmlFor='main_modal' className='btn' onClick={handleClose}>
+                            {persianLanguage.close}
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

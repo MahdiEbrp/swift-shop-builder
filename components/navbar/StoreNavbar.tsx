@@ -2,11 +2,11 @@ import { GiClothes, GiHamburgerMenu } from 'react-icons/gi';
 import { GrLocation } from 'react-icons/gr';
 import { DropdownItem } from './UserNavbar';
 import { FaTshirt } from 'react-icons/fa';
-import React,{ HTMLAttributes, ReactNode, useState } from 'react';
+import React, { HTMLAttributes, ReactNode, useState } from 'react';
 import { IconType } from 'react-icons';
-import Modal from '../Modal';
-import CitySelection from '../modal-templates/CitySelection';
 import { persianLanguage } from '@/data/persian';
+import CitySelectionModal from '../modals/CitySelectionModal';
+import { AccordionItemType } from '../Accordion';
 
 const MAX_ICON_SIZE = 24;
 type HoverButtonProps = {
@@ -43,14 +43,18 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ children, className, ...res
 };
 const StoreNavbar = () => {
     const [isModalOpen, setModalOpen] = useState(false);
+    const [selectedCity, setSelectedCity] = useState(persianLanguage.pleaseSelectYourCity);
+    const handleCityChange = (selectedItem: AccordionItemType, province: string) => {
+        const city = selectedItem.label;
+        const cityWithProvince = province ? `${province},${city}` : city;
+        setSelectedCity(cityWithProvince);
+    };
     return (
         <nav className='navbar hidden md:flex bg-base-100 min-h-[1rem] p-[2px]'>
             <div className='justify-start'>
-                <HoverButton icon={GrLocation} label={persianLanguage.pleaseSelectYourCity} onClick={() => setModalOpen(true)} />
-                <Modal isOpen={isModalOpen} handleClose={() => setModalOpen(false)}>
-                    <CitySelection />
-                </Modal>
+                <HoverButton icon={GrLocation} label={selectedCity} onClick={() => setModalOpen(true)} />
             </div>
+            <CitySelectionModal isOpen={isModalOpen} handleClose={() => setModalOpen(false)} onItemSelect={handleCityChange} />
             <div className='flex-1 flex-col items-center'>
             </div>
             <div className='justify-end p-1'>

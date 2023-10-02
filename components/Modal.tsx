@@ -1,7 +1,7 @@
 import { persianLanguage } from '@/data/persian';
 import React, { KeyboardEvent, MouseEvent } from 'react';
 
-type ModalProps = {
+export type ModalProps = {
     isOpen: boolean;
     handleClose: () => void;
     children?: React.ReactNode;

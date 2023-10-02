@@ -1,13 +1,15 @@
 import { persianLanguage } from '@/data/persian';
 import React, { useState } from 'react';
 import { FaCaretLeft } from 'react-icons/fa';
-type AccordionItem = {
-    item: string;
-    subItems?: AccordionItem[];
+export type AccordionItemType = {
+    label: string;
+    id: string;
+    subItems?: AccordionItemType[];
 };
 
 type AccordionProps = {
-    accordionItems: AccordionItem[];
+    accordionItems: AccordionItemType[];
+    onAccordionItemClick?: (item: AccordionItemType, itemPath: string) => void;
 };
 
 const getBorderStyle = (index: number, itemCount: number): string => {
@@ -22,27 +24,38 @@ const getBorderStyle = (index: number, itemCount: number): string => {
     }
 };
 
-const Accordion: React.FC<AccordionProps> = ({ accordionItems }) => {
-    const [selectedItems, setSelectedItems] = useState<AccordionItem[] | undefined>(accordionItems);
-    const [selectedItemsHistory, setSelectedItemsHistory] = useState<AccordionItem[][]>([]);
+const Accordion: React.FC<AccordionProps> = ({ accordionItems, onAccordionItemClick }) => {
+    const [selectedAccordionItems, setSelectedAccordionItems] = useState<AccordionItemType[] | undefined>(accordionItems);
+    const [accordionHistory, setAccordionHistory] = useState<AccordionItemType[]>([]);
 
-    const toggleItem = (index: number) => {
-        if (selectedItems && selectedItems[index].subItems) {
-            const newSelectedItems = selectedItems[index].subItems;
-            setSelectedItemsHistory([...selectedItemsHistory, selectedItems]);
-            setSelectedItems(newSelectedItems);
+    const toggleAccordionItem = (index: number) => {
+        if (selectedAccordionItems ) {
+            const SelectedAccordionItem = selectedAccordionItems[index];
+            if (SelectedAccordionItem.subItems) {
+                setAccordionHistory([...accordionHistory, SelectedAccordionItem]);
+                setSelectedAccordionItems(SelectedAccordionItem.subItems);
+            }
+            else
+                handleAccordionItemClick(SelectedAccordionItem);
         }
+
     };
     const handleGoBack = () => {
-        if (selectedItemsHistory.length > 0) {
-            const prevSelectedItems = selectedItemsHistory.pop() || [];
-            setSelectedItems(prevSelectedItems);
-        }
+        accordionHistory.pop();
+        if (accordionHistory.length === 0)
+            setSelectedAccordionItems(accordionItems);
+        else
+            setSelectedAccordionItems(accordionHistory[accordionHistory.length - 1].subItems);
+        setAccordionHistory(accordionHistory);
     };
 
+    const handleAccordionItemClick = (currentItem: AccordionItemType) => {
+        const accordionItemLabels = accordionHistory.map(accordionItem => accordionItem.label).join(',');
+        onAccordionItemClick?.(currentItem, accordionItemLabels);
+    };
     return (
         <ul className='flex flex-col w-full p-2'>
-            {selectedItemsHistory.length > 0 &&
+            {accordionHistory.length > 0 &&
                 <li className='flex flex-row cursor-pointer px-2 py-2 gap-1' onClick={handleGoBack}>
                     <FaCaretLeft className='pointer-events-none opacity-75 rotate-180'
                         size={16}
@@ -51,15 +64,15 @@ const Accordion: React.FC<AccordionProps> = ({ accordionItems }) => {
                 </li>
             }
 
-            {selectedItems?.map((item, index) =>
+            {selectedAccordionItems?.map((item, index) =>
                 <li
-                    key={`${item.item}-${index}`}
-                    className={`bg-base-200 slideInRight ${getBorderStyle(index, selectedItems.length)} cursor-pointer px-2 py-2 `}
-                    style={{animationDelay:`${index*100}ms`}}
-                    onClick={() => toggleItem(index)}
+                    key={`${item.id}-${index}`}
+                    className={`bg-base-200 slideInRight ${getBorderStyle(index, selectedAccordionItems.length)} cursor-pointer px-2 py-2 `}
+                    style={{ animationDelay: `${index * 100}ms` }}
+                    onClick={() => toggleAccordionItem(index)}
                 >
                     <span className='flex flex-row items-center'>
-                        <span className='flex-1'>{item.item}</span>
+                        <span className='flex-1'>{item.label}</span>
                         {item.subItems &&
                             <span className='justify-end'>
                                 <FaCaretLeft

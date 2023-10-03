@@ -1,5 +1,5 @@
 import { persianLanguage } from '@/data/persian';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { FaCaretLeft } from 'react-icons/fa';
 export type AccordionItemType = {
     label: string;
@@ -9,6 +9,8 @@ export type AccordionItemType = {
 
 type AccordionProps = {
     accordionItems: AccordionItemType[];
+    filter?: string;
+    onResetFilter?: () => void;
     onAccordionItemClick?: (item: AccordionItemType, itemPath: string) => void;
 };
 
@@ -24,21 +26,28 @@ const getBorderStyle = (index: number, itemCount: number): string => {
     }
 };
 
-const Accordion: React.FC<AccordionProps> = ({ accordionItems, onAccordionItemClick }) => {
+const Accordion: React.FC<AccordionProps> = ({ accordionItems, onResetFilter,filter='', onAccordionItemClick }) => {
     const [selectedAccordionItems, setSelectedAccordionItems] = useState<AccordionItemType[] | undefined>(accordionItems);
     const [accordionHistory, setAccordionHistory] = useState<AccordionItemType[]>([]);
 
+
+    const filteredItems = useMemo(() => {
+        if (filter)
+            return selectedAccordionItems?.filter(item => item.label.toLowerCase().includes(filter.toLowerCase()));
+        else
+            return selectedAccordionItems;
+    }, [filter, selectedAccordionItems]);
     const toggleAccordionItem = (index: number) => {
-        if (selectedAccordionItems ) {
-            const SelectedAccordionItem = selectedAccordionItems[index];
+        if (filteredItems ) {
+            const SelectedAccordionItem = filteredItems[index];
             if (SelectedAccordionItem.subItems) {
                 setAccordionHistory([...accordionHistory, SelectedAccordionItem]);
                 setSelectedAccordionItems(SelectedAccordionItem.subItems);
+                onResetFilter?.();
             }
             else
                 handleAccordionItemClick(SelectedAccordionItem);
         }
-
     };
     const handleGoBack = () => {
         accordionHistory.pop();
@@ -64,10 +73,10 @@ const Accordion: React.FC<AccordionProps> = ({ accordionItems, onAccordionItemCl
                 </li>
             }
 
-            {selectedAccordionItems?.map((item, index) =>
+            {filteredItems?.map((item, index) =>
                 <li
                     key={`${item.id}-${index}`}
-                    className={`bg-base-200 slideInRight ${getBorderStyle(index, selectedAccordionItems.length)} cursor-pointer px-2 py-2 `}
+                    className={`bg-base-200 slideInRight ${getBorderStyle(index, filteredItems.length)} cursor-pointer px-2 py-2 `}
                     style={{ animationDelay: `${index * 100}ms` }}
                     onClick={() => toggleAccordionItem(index)}
                 >

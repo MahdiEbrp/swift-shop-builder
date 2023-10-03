@@ -15,6 +15,7 @@ export const persianLanguage = {
     settings: 'تنظیمات',
     logout: 'خروج از حساب کاربری',
     back: 'بازگشت',
+    search: 'جستجو کنید',
 };
 
 

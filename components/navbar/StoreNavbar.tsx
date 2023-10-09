@@ -1,18 +1,22 @@
+/* eslint-disable jsx-quotes */
+import CitySelectionModal from '../modals/CitySelectionModal';
+import React, { HTMLAttributes, useState } from 'react';
+import { AccordionItemType } from '../Accordion';
+import { AiFillFire } from 'react-icons/ai';
+import { BiSolidOffer } from 'react-icons/bi';
+import { BsQuestionLg } from 'react-icons/bs';
+import { FaTshirt } from 'react-icons/fa';
 import { GiClothes, GiHamburgerMenu } from 'react-icons/gi';
 import { GrLocation } from 'react-icons/gr';
-import { DropdownItem } from './UserNavbar';
-import { FaTshirt } from 'react-icons/fa';
-import React, { HTMLAttributes, ReactNode, useState } from 'react';
-import { IconType } from 'react-icons';
+import { IconBaseProps, IconType } from 'react-icons';
+import { MdOutlineWarehouse } from 'react-icons/md';
 import { persianLanguage } from '@/data/persian';
-import CitySelectionModal from '../modals/CitySelectionModal';
-import { AccordionItemType } from '../Accordion';
+import { DropdownItem } from '../DropDown';
 
 const MAX_ICON_SIZE = 24;
 type HoverButtonProps = {
     icon: IconType;
     label: string;
-    children?: ReactNode;
 } & HTMLAttributes<HTMLButtonElement>;
 export const HoverButton = ({ icon, label, children, ...rest }: HoverButtonProps) => {
     const Icon = icon;
@@ -24,6 +28,19 @@ export const HoverButton = ({ icon, label, children, ...rest }: HoverButtonProps
             </button>
             {children}
         </div>
+    );
+};
+type StoreButtonProps = {
+    icon: IconType;
+    label: string;
+} & HTMLAttributes<HTMLAnchorElement>;
+export const StoreButton = ({ icon, label, ...rest }: StoreButtonProps) => {
+    const Icon = icon;
+    return (
+        <a {...rest} className='btn btn-ghost btn-sm inline-flex items-center gap-1'>
+            <Icon className='opacity-60' size={MAX_ICON_SIZE} />
+            <span>{label}</span>
+        </a>
     );
 };
 type DropdownMenuProps = {
@@ -41,6 +58,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ children, className, ...res
         </ul>
     );
 };
+const Divider = () => {
+    return <div className='h-[20px] bg-neutral-content w-[2px]' />;
+};
+
 const StoreNavbar = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedCity, setSelectedCity] = useState(persianLanguage.pleaseSelectYourCity);
@@ -50,12 +71,17 @@ const StoreNavbar = () => {
         setSelectedCity(cityWithProvince);
     };
     return (
-        <nav className='navbar hidden md:flex bg-base-100 min-h-[1rem] p-[2px]'>
-            <div className='justify-start'>
+        <nav className='hidden flex-row md:flex bg-base-100 min-h-[1rem] p-[2px]'>
+            <div className='justify-start flex-wrap'>
                 <HoverButton icon={GrLocation} label={selectedCity} onClick={() => setModalOpen(true)} />
             </div>
             <CitySelectionModal isOpen={isModalOpen} handleClose={() => setModalOpen(false)} onAddressChange={handleCityChange} />
-            <div className='flex-1 flex-col items-center'>
+            <div dir='rtl' className='flex-1 flex-row flex-wrap justify-start gap-1 items-center'>
+                <StoreButton icon={BiSolidOffer} label={persianLanguage.incredibleOffers} />
+                <StoreButton icon={AiFillFire} label={persianLanguage.bestSelling} />
+                <StoreButton icon={MdOutlineWarehouse} label={persianLanguage.newestItems} />
+                <Divider />
+                <StoreButton icon={BsQuestionLg} label={persianLanguage.haveAnyQuestion} />
             </div>
             <div className='justify-end p-1'>
                 <HoverButton icon={GiHamburgerMenu} label={persianLanguage.commodityCategory}>
@@ -64,10 +90,30 @@ const StoreNavbar = () => {
                         <DropdownItem icon={GiClothes} label={persianLanguage.formalClothes} />
                     </DropdownMenu>
                 </HoverButton>
-
-            </div>
-
-
+                {/* </DropdownItem> */}
+                {/* <ul className='menu bg-base-200 w-56 rounded-box'>
+                            <li><a>Item 1</a></li>
+                            <li>
+                                <details open>
+                                    <summary>Parent</summary>
+                                    <ul>
+                                        <li><a>level 2 item 1</a></li>
+                                        <li><a>level 2 item 2</a></li>
+                                        <li>
+                                            <details open>
+                                                <summary>Parent</summary>
+                                                <ul>
+                                                    <li><a>level 3 item 1</a></li>
+                                                    <li><a>level 3 item 2</a></li>
+                                                </ul>
+                                            </details>
+                                        </li>
+                                    </ul>
+                                </details>
+                            </li>
+                            <li><a>Item 3</a></li>
+                        </ul> */}
+            </div >
         </nav >
     );
 };

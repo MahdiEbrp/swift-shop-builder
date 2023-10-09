@@ -16,6 +16,10 @@ export const persianLanguage = {
     logout: 'خروج از حساب کاربری',
     back: 'بازگشت',
     search: 'جستجو کنید',
+    incredibleOffers: 'شگفت‌انگیزها',
+    bestSelling: 'پرفروش‌ترین‌ها',
+    newestItems: 'جدیدترین‌ها',
+    haveAnyQuestion:'سوالی دارید؟',
 };
 
 

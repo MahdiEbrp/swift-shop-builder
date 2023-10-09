@@ -2,13 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-html,body,main {
-  max-width: min(100%,100vw);
+html,
+body,
+main {
+  max-width: min(100%, 100vw);
   margin: 0px !important;
   padding: 0px !important;
   overflow-x: hidden;
 }
-
+* {
+  font-family: "Vazirmatn", "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+}
 .slideInRight {
   animation: slideInRight 0.5s;
   animation-play-state: running;
@@ -27,9 +33,37 @@ html,body,main {
   animation-play-state: paused;
   transform: translateX(0);
 }
+.upsidedown {
+  transform: rotateZ(0deg) translateZ(0px) rotateX(180deg);
+}
 
+@layer components {
+  .input {
+    @apply py-3 px-4 focus-visible:outline-gray-500 w-full border-2  block border-gray-400 rounded-md focus-visible:border-gray-400 text-sm;
+  }
+  .btn {
+    @apply p-4 relative inline-flex cursor-pointer flex-row justify-center items-center font-semibold text-gray-500 hover:bg-gray-100 transition-all text-sm rounded-full active:scale-75;
+  }
 
-
-
-
-
+  .indicator {
+    @apply absolute before:relative bg-green-500 rounded-full text-white p-1 text-xs pointer-events-none top-1/2 right-0;
+  }
+  .expandable_arrow {
+    @apply absolute rounded-full pl-2 text-xs pointer-events-none top-[20%] right-0 transition-all;
+  }
+  .dropdown_container {
+    @apply transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden bg-white shadow-md rounded-lg p-2 mt-2  after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full;
+  }
+  .dropdown_item {
+    @apply flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-700 hover:bg-gray-100;
+  }
+  .separator {
+    @apply w-full border border-gray-200;
+  }
+  .dropdown_banner {
+    @apply flex flex-col items-center justify-center gap-2 mb-2 text-gray-700
+  }
+  .circular_avatar{
+    @apply inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-700 text-gray-100 text-xl
+  }
+}

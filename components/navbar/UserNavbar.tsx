@@ -10,9 +10,10 @@ const UserNavbar = () => {
         <div className='sticky z-50 flex flex-row items-center justify-between w-full p-2'>
             <div className='flex-row justify-start hidden md:flex'>
                 <ShoppingBagIcon />
-                <ul className='dropdown menu menu-horizontal px-1'>
+                <div className='dropdown menu menu-horizontal px-1'>
                     <UserDropdownMenu />
-                </ul>
+                    <span className='sr-only'>{persianLanguage.user}</span>
+                </div>
             </div>
             <div className='flex flex-1 flex-col items-center'>
                 <SearchBox />

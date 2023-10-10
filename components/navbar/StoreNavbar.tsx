@@ -22,7 +22,7 @@ export const HoverButton = ({ icon, label, children, ...rest }: HoverButtonProps
     const Icon = icon;
     return (
         <div dir='rtl' className='dropdown dropdown-hover' tabIndex={0}>
-            <button {...rest} dir='rtl' className='btn btn-ghost btn-sm inline-flex items-center gap-1'>
+            <button {...rest} dir='rtl' className='btn gap-1'>
                 <Icon size={MAX_ICON_SIZE} />
                 <span>{label}</span>
             </button>
@@ -30,14 +30,14 @@ export const HoverButton = ({ icon, label, children, ...rest }: HoverButtonProps
         </div>
     );
 };
-type StoreButtonProps = {
+type StoreNavbarItemProps = {
     icon: IconType;
     label: string;
 } & HTMLAttributes<HTMLAnchorElement>;
-export const StoreButton = ({ icon, label, ...rest }: StoreButtonProps) => {
+export const StoreNavbarItem = ({ icon, label, ...rest }: StoreNavbarItemProps) => {
     const Icon = icon;
     return (
-        <a {...rest} className='btn btn-ghost btn-sm inline-flex items-center gap-1'>
+        <a {...rest} className='btn gap-1'>
             <Icon className='opacity-60' size={MAX_ICON_SIZE} />
             <span>{label}</span>
         </a>
@@ -71,19 +71,19 @@ const StoreNavbar = () => {
         setSelectedCity(cityWithProvince);
     };
     return (
-        <nav className='hidden flex-row md:flex bg-base-100 min-h-[1rem] p-[2px]'>
-            <div className='justify-start flex-wrap'>
+        <nav id='store_bar' className='store_navbar'>
+            <div id='left_side_store_bar' className='left_side_store_bar'>
                 <HoverButton icon={GrLocation} label={selectedCity} onClick={() => setModalOpen(true)} />
             </div>
             <CitySelectionModal isOpen={isModalOpen} handleClose={() => setModalOpen(false)} onAddressChange={handleCityChange} />
-            <div dir='rtl' className='flex-1 flex-row flex-wrap justify-start gap-1 items-center'>
-                <StoreButton icon={BiSolidOffer} label={persianLanguage.incredibleOffers} />
-                <StoreButton icon={AiFillFire} label={persianLanguage.bestSelling} />
-                <StoreButton icon={MdOutlineWarehouse} label={persianLanguage.newestItems} />
+            <div id='middle_side_store_bar' dir='rtl' className='middle_side_store_bar'>
+                <StoreNavbarItem icon={BiSolidOffer} label={persianLanguage.incredibleOffers} />
+                <StoreNavbarItem icon={AiFillFire} label={persianLanguage.bestSelling} />
+                <StoreNavbarItem icon={MdOutlineWarehouse} label={persianLanguage.newestItems} />
                 <Divider />
-                <StoreButton icon={BsQuestionLg} label={persianLanguage.haveAnyQuestion} />
+                <StoreNavbarItem icon={BsQuestionLg} label={persianLanguage.haveAnyQuestion} />
             </div>
-            <div className='justify-end p-1'>
+            <div id='right_side_store_bar' className='flex justify-end p-1'>
                 <HoverButton icon={GiHamburgerMenu} label={persianLanguage.commodityCategory}>
                     <DropdownMenu>
                         <DropdownItem icon={FaTshirt} label={persianLanguage.tShirt} />

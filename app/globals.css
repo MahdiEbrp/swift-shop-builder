@@ -41,10 +41,13 @@ main {
   .input {
     @apply py-3 px-4 focus-visible:outline-gray-500 w-full border-2  block border-gray-400 rounded-md focus-visible:border-gray-400 text-sm;
   }
-  .btn {
+  .circular_btn {
     @apply p-4 relative inline-flex cursor-pointer flex-row justify-center items-center font-semibold text-gray-500 hover:bg-gray-100 transition-all text-sm rounded-full active:scale-75;
   }
-
+  .btn {
+    @apply p-2 relative inline-flex cursor-pointer flex-row justify-center items-center font-semibold text-gray-500 hover:bg-gray-100 transition-all text-sm rounded-md active:scale-75;
+  }
+ 
   .indicator {
     @apply absolute before:relative bg-green-500 rounded-full text-white p-1 text-xs pointer-events-none top-1/2 right-0;
   }
@@ -85,12 +88,32 @@ main {
     @apply flex justify-between items-center py-3 px-4 border-b;
   }
   .backdrop {
-    @apply transition  fixed inset-0 z-50 bg-gray-900 bg-opacity-50;
+    @apply transition fixed inset-0 z-50 bg-gray-900 bg-opacity-50;
   }
-  
+  .store_navbar {
+    @apply hidden flex-row md:flex min-h-[1rem] p-[2px] w-full;
+  }
+  .inline_btn {
+    @apply btn inline-flex items-center gap-1;
+  }
+  .navbar {
+    @apply flex w-full flex-col items-center justify-between shadow-md;
+  }
+  .left_side_store_bar{
+    @apply flex-shrink-0
+  }
+  .middle_side_store_bar {
+    @apply flex-grow flex flex-row
+  }
+  .right_side_store_bar {
+        @apply flex-shrink-0
+  }
 }
 @layer base {
   h3 {
     @apply font-bold text-gray-800;
+  }
+  main {
+    @apply flex min-h-screen flex-col items-center justify-between
   }
 }

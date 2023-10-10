@@ -40,7 +40,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, handleClose, children }) => {
                     <h3>
                         {persianLanguage.selectTheCity}
                     </h3>
-                    <button type='button' className='btn p-1' onClick={handleCloseEvent}>
+                    <button type='button' className='circular_btn p-1' onClick={handleCloseEvent}>
                         <span className='sr-only'></span>
                         <GrClose size={24} />
                     </button>

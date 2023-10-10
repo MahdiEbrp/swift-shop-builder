@@ -15,7 +15,7 @@ export default function RootLayout({
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-     import('preline');
+    import('preline');
   }, []);
   return (
     <html lang='fa'>
@@ -27,7 +27,9 @@ export default function RootLayout({
         <header>
           <Navbar />
         </header>
-        {children}
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );

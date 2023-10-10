@@ -19,9 +19,9 @@ const getBorderStyle = (index: number, itemCount: number): string => {
     if (itemCount === 1) {
         return 'rounded border';
     } else if (index === 0) {
-        return 'rounded-b-lg border';
-    } else if (index === itemCount - 1) {
         return 'rounded-t-lg border';
+    } else if (index === itemCount - 1) {
+        return 'rounded-b-lg border';
     } else {
         return 'rounded-none border';
     }
@@ -77,7 +77,7 @@ const Accordion: React.FC<AccordionProps> = ({ accordionItems, onResetFilter,fil
             {filteredItems?.map((item, index) =>
                 <li
                     key={`${item.id}-${index}`}
-                    className={`btn slideInRight ${getBorderStyle(index, filteredItems.length)} cursor-pointer px-2 py-2 `}
+                    className={`ghost slideInRight ${getBorderStyle(index, filteredItems.length)} cursor-pointer px-2 py-2 `}
                     style={{ animationDelay: `${index * 100}ms` }}
                     onClick={() => toggleAccordionItem(index)}
                 >

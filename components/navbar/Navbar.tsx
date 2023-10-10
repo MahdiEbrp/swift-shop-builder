@@ -5,7 +5,7 @@ import StoreNavbar from './StoreNavbar';
 
 const Navbar = () => {
     return (
-        <div className='flex w-full flex-col items-center justify-between shadow-md'>
+        <div id='main_navbar' className='navbar'>
             <UserNavbar />
             <StoreNavbar />
         </div>

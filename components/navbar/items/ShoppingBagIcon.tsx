@@ -4,7 +4,7 @@ const MAX_ICON_SIZE = 29;
 
 export const ShoppingBagIcon = () => {
     return (
-        <button className='btn' >
+        <button className='circular_btn' >
             <BiShoppingBag size={MAX_ICON_SIZE} />
             <span className='indicator'>+۹۹</span>
         </button>

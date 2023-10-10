@@ -19,7 +19,8 @@ export const persianLanguage = {
     incredibleOffers: 'شگفت‌انگیزها',
     bestSelling: 'پرفروش‌ترین‌ها',
     newestItems: 'جدیدترین‌ها',
-    haveAnyQuestion:'سوالی دارید؟',
+    haveAnyQuestion: 'سوالی دارید؟',
+    user:'کاربر',
 };
 
 

@@ -47,8 +47,9 @@ const UserDropdownMenu = () => {
 
     return (
         <div id={DROP_DOWN_CONTAINER_ID} className='hs-dropdown [--trigger:hover]' >
-            <button id='hs-dropdown-hover-event' type='button' className='btn hs-dropdown-toggle'>
+            <button id='hs-dropdown-hover-event' type='button' className='circular_btn hs-dropdown-toggle'>
                 <BiUser size={MAX_ICON_SIZE} />
+                <span className='sr-only'>{persianLanguage.guestUser}</span>
                 <IoMdArrowDropup className={`expandable_arrow ${isMenuOpen ? 'upsidedown' : ''}`} size={32} />
             </button>
             <DropDown>

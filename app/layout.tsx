@@ -1,12 +1,10 @@
 'use client';
-
 import { persianLanguage } from '@/data/persian';
 import './globals.css';
 import { Vazirmatn } from 'next/font/google';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '@/components/navbar/Navbar';
 const inter = Vazirmatn({ subsets: ['arabic', 'latin'] });
-import 'preline';
 
 export default function RootLayout({
   children,
@@ -14,6 +12,11 @@ export default function RootLayout({
   // eslint-disable-next-line no-undef
   children: React.ReactNode;
 }) {
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+     import('preline');
+  }, []);
   return (
     <html lang='fa'>
       <head>

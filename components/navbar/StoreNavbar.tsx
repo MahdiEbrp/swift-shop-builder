@@ -8,7 +8,7 @@ import { BsQuestionLg } from 'react-icons/bs';
 import { FaTshirt } from 'react-icons/fa';
 import { GiClothes, GiHamburgerMenu } from 'react-icons/gi';
 import { GrLocation } from 'react-icons/gr';
-import { IconBaseProps, IconType } from 'react-icons';
+import { IconType } from 'react-icons';
 import { MdOutlineWarehouse } from 'react-icons/md';
 import { persianLanguage } from '@/data/persian';
 import { DropdownItem } from '../DropDown';
@@ -90,29 +90,6 @@ const StoreNavbar = () => {
                         <DropdownItem icon={GiClothes} label={persianLanguage.formalClothes} />
                     </DropdownMenu>
                 </HoverButton>
-                {/* </DropdownItem> */}
-                {/* <ul className='menu bg-base-200 w-56 rounded-box'>
-                            <li><a>Item 1</a></li>
-                            <li>
-                                <details open>
-                                    <summary>Parent</summary>
-                                    <ul>
-                                        <li><a>level 2 item 1</a></li>
-                                        <li><a>level 2 item 2</a></li>
-                                        <li>
-                                            <details open>
-                                                <summary>Parent</summary>
-                                                <ul>
-                                                    <li><a>level 3 item 1</a></li>
-                                                    <li><a>level 3 item 2</a></li>
-                                                </ul>
-                                            </details>
-                                        </li>
-                                    </ul>
-                                </details>
-                            </li>
-                            <li><a>Item 3</a></li>
-                        </ul> */}
             </div >
         </nav >
     );

@@ -1,3 +1,4 @@
+
 import { persianLanguage } from '@/data/persian';
 import React, { useMemo, useState } from 'react';
 import { FaCaretLeft } from 'react-icons/fa';
@@ -16,13 +17,13 @@ type AccordionProps = {
 
 const getBorderStyle = (index: number, itemCount: number): string => {
     if (itemCount === 1) {
-        return 'rounded';
+        return 'rounded border';
     } else if (index === 0) {
-        return 'rounded-t-lg border-b-2';
+        return 'rounded-b-lg border';
     } else if (index === itemCount - 1) {
-        return 'rounded-b-lg';
+        return 'rounded-t-lg border';
     } else {
-        return 'rounded-none border-b-2';
+        return 'rounded-none border';
     }
 };
 
@@ -76,7 +77,7 @@ const Accordion: React.FC<AccordionProps> = ({ accordionItems, onResetFilter,fil
             {filteredItems?.map((item, index) =>
                 <li
                     key={`${item.id}-${index}`}
-                    className={`bg-base-200 slideInRight ${getBorderStyle(index, filteredItems.length)} cursor-pointer px-2 py-2 `}
+                    className={`btn slideInRight ${getBorderStyle(index, filteredItems.length)} cursor-pointer px-2 py-2 `}
                     style={{ animationDelay: `${index * 100}ms` }}
                     onClick={() => toggleAccordionItem(index)}
                 >

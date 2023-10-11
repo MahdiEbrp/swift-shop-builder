@@ -45,9 +45,9 @@ main {
     @apply p-4 relative inline-flex cursor-pointer flex-row justify-center items-center font-semibold text-gray-500 hover:bg-gray-100 transition-all text-sm rounded-full active:scale-75;
   }
   .btn {
-    @apply p-2 relative inline-flex cursor-pointer flex-row justify-center items-center font-semibold text-gray-500 hover:bg-gray-100 transition-all text-sm rounded-md active:scale-75;
+    @apply p-2 relative inline-flex cursor-pointer flex-row justify-center items-center font-semibold text-gray-500 hover:bg-gray-100 transition-all text-sm rounded-md active:scale-75 gap-1;
   }
- 
+
   .indicator {
     @apply absolute before:relative bg-green-500 rounded-full text-white p-1 text-xs pointer-events-none top-1/2 right-0;
   }
@@ -58,7 +58,7 @@ main {
     @apply transition-[opacity,margin] hs-dropdown-open:opacity-100 opacity-0 hidden bg-white shadow-md rounded-lg p-2 mt-2  after:h-4 after:absolute after:-bottom-4 after:left-0 after:w-full before:h-4 before:absolute before:-top-4 before:left-0 before:w-full;
   }
   .dropdown_item {
-    @apply flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-700 hover:bg-gray-100;
+    @apply flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-500 hover:bg-gray-100;
   }
   .separator {
     @apply w-full border border-gray-200;
@@ -99,14 +99,14 @@ main {
   .navbar {
     @apply flex w-full flex-col items-center justify-between shadow-md;
   }
-  .left_side_store_bar{
-    @apply flex-shrink-0
+  .left_side_store_bar {
+    @apply flex-shrink-0;
   }
   .middle_side_store_bar {
-    @apply flex-grow flex flex-row
+    @apply flex-grow flex flex-row;
   }
   .right_side_store_bar {
-        @apply flex-shrink-0
+    @apply flex-shrink-0;
   }
 }
 @layer base {
@@ -114,6 +114,6 @@ main {
     @apply font-bold text-gray-800;
   }
   main {
-    @apply flex min-h-screen flex-col items-center justify-between
+    @apply flex min-h-screen flex-col items-center justify-between;
   }
 }
